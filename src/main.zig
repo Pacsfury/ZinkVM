@@ -164,7 +164,7 @@ pub fn run(program: []const u8, stack: *std.ArrayList(i32), allocator: std.mem.A
                 stack.items[stack.items.len - 1] = stack.items[stack.items.len - 1] - 1;
             },
             .cout => {
-                std.debug.print("{c}\n", .{@as(u8, @intCast(stack.items[stack.items.len - 1]))});
+                std.debug.print("{c}", .{@as(u8, @intCast(stack.items[stack.items.len - 1]))});
             },
             .swap => {
                 const a = stack.pop() orelse 0;
