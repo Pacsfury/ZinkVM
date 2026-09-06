@@ -83,6 +83,10 @@ Developing another simple stack-based virtual machine, this time written in Zig 
 
 38 - SPRINT - _Pops a constant pool address, prints the string at that index of constant pool_
 
+39 - CALL - _Next number is the new PC, the old gets pushed onto a call stack_
+
+40 - RET - _Pops the top os call stack and returns there_
+
 ## Assembler
 
 Write a `text.zmb` (**Z**inkVM Asse**mb**ly) at src/ folder. In that file, you will write assembly for our VM.

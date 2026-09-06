@@ -5,6 +5,8 @@ const asmb = @import("assembler.zig");
 pub fn run(program: []const u8, stack: *std.ArrayList(i32), allocator: std.mem.Allocator) !i32 {
     var pc: usize = 0;
     var memory = [_]i32{0} ** 256;
+    var calls = std.ArrayList(i32).empty;
+    defer calls.deinit(allocator);
 
     while (pc < program.len) {
         const op: operations = @enumFromInt(program[pc]);
@@ -252,6 +254,21 @@ pub fn run(program: []const u8, stack: *std.ArrayList(i32), allocator: std.mem.A
                     .string => |value| std.debug.print("{s}\n", .{value}),
                     .float => |value| std.debug.print("{}\n", .{value}),
                 }
+            },
+            .call => {
+                try calls.append(allocator, @as(i32, pc+1));
+                const target = program[pc];
+                pc = @as(usize, target);
+            },
+            .ret => {
+                if (calls.items.len == 0) {
+                    return error.EmptyCallStack;
+                }
+                const return_address = calls.pop() orelse 0;
+                pc = @as(usize, return_address);
+            },
+            else => {
+                return error.InvalidOperation;
             },
         }
     }
