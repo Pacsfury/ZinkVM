@@ -77,6 +77,15 @@ Developing another simple stack-based virtual machine, this time written in Zig 
 
 35 - JLE — _Pops two items, goes to the next program number if a <= b_
 
+36 - SAVE - _Pops address, then value, saves at memory_
+
+37 - LOAD - _Pops address, pushed value from memory_
+
+38 - SPRINT - _Pops a constant pool address, prints the string at that index of constant pool_
+
+## Assembler
+
+_Docs coming soon_
 
 ## Examples
 
