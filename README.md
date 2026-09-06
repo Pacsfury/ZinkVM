@@ -156,3 +156,52 @@ So basically, what the program does is:
 | 0x01     | 0x06| 0x07            | 0x06       | 0x08          | 0x01     | 0x00 |
 
 We push zero at the end (we could do other operations, like -6) because the VM gets the top of the stack and uses it as the program result. And code 0 means all right.
+
+### Count backwards
+_Could you write it using loops?_
+
+
+```
+%SCONST "Iteration Nº "
+0x1C 
+0x01
+0x00 
+0x26
+0x02
+0x01
+0x05 
+0x08
+0x01 
+0x00
+0x26
+0x02
+0x19
+0x08
+0x01 
+0x00
+0x26
+0x02
+0x19
+0x08
+0x01 
+0x00
+0x26
+0x02
+0x19
+0x08
+0x01 
+0x00
+0x26
+0x02
+0x19
+0x08
+0x01
+0x00
+```
+
+I won't add an explanation for every operation for a logical reason, but I'll explain here what it does:
+
+- Saves the string at the constant pool. Clears the stack for potential garbage left by the assembler with `%SCONST`
+- Prints the string, and pushes 5, prints it using `RES`
+- Repeats the last one, but instead of pushing 5, uses `DEC`
+- Does the last one 4 times

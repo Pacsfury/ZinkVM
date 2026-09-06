@@ -256,7 +256,7 @@ pub fn run(program: []const u8, stack: *std.ArrayList(i32), allocator: std.mem.A
                 }
             },
             .call => {
-                try calls.append(allocator, @as(i32, pc+1));
+                try calls.append(allocator, @intCast(pc + 1));
                 const target = program[pc];
                 pc = @as(usize, target);
             },
@@ -265,10 +265,7 @@ pub fn run(program: []const u8, stack: *std.ArrayList(i32), allocator: std.mem.A
                     return error.EmptyCallStack;
                 }
                 const return_address = calls.pop() orelse 0;
-                pc = @as(usize, return_address);
-            },
-            else => {
-                return error.InvalidOperation;
+                pc = @intCast(return_address);
             },
         }
     }
